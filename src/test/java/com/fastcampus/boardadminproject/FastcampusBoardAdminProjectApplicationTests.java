@@ -6,10 +6,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class FastcampusBoardAdminProjectApplicationTests {
-
+class FastCampusBoardAdminProjectApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
