@@ -6,6 +6,7 @@ logging:
     com.fastcampus.boardadminproject: debug
     org.springframework.web.servlet: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.web.client.RestTemplate: debug
 
 server.port: 8081
 
@@ -42,6 +43,8 @@ spring:
         tokenUri: https://kauth.kakao.com/oauth/token
         userInfoUri: https://kapi.kakao.com/v2/user/me
         userNameAttribute: id
+
+project.board.url: http://localhost:8080
 
 ---
 
