@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.compile.JavaCompile
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.7'
@@ -29,6 +31,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
+	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.15'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
@@ -36,10 +40,29 @@ dependencies {
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'com.github.therapi:therapi-runtime-javadoc-scribe:0.15.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// Querydsl 설정부
+def generated = "src/main/generated"
+
+// querydsl QClass 파일 생성 위치
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+// java source set 에 querydsl QClass 위치 추가
+sourceSets {
+	main.java.srcDirs += { generated }
+}
+
+// gradle clean 시에 QClass 디렉터리 삭제
+clean {
+	delete file(generated)
 }
