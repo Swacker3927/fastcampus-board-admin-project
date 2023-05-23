@@ -103,7 +103,7 @@ class ArticleManagementServiceTest {
                     .hasFieldOrPropertyWithValue("id", expectedArticle.id())
                     .hasFieldOrPropertyWithValue("title", expectedArticle.title())
                     .hasFieldOrPropertyWithValue("content", expectedArticle.content())
-                    .hasFieldOrPropertyWithValue("userAccountDto.nickname", expectedArticle.userAccountDto().nickname());
+                    .hasFieldOrPropertyWithValue("userAccountDto.nickname", expectedArticle.userAccount().nickname());
             server.verify();
         }
 
