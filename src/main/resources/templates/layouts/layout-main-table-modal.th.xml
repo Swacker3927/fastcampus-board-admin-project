@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel=".modal-footer/form" th:action="@{#}" th:method="post" />
+</thlogic>
