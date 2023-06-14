@@ -23,7 +23,7 @@ public record ArticleClientResponse(
         );
     }
 
-    List<ArticleDto> articles() { return this.embedded().articles(); }
+    public List<ArticleDto> articles() { return this.embedded().articles(); }
     record Embedded(List<ArticleDto> articles) {
     }
     record Page(
