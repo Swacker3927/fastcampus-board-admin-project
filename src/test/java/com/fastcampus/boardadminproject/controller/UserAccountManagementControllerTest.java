@@ -12,10 +12,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@DisplayName("View 컨트롤러 - 회원 관리")
+@DisplayName("컨트롤러 - 회원 관리")
 @Import(SecurityConfig.class)
 @WebMvcTest(UserAccountManagementController.class)
 class UserAccountManagementControllerTest {
+
     private final MockMvc mvc;
 
     UserAccountManagementControllerTest(@Autowired MockMvc mvc) {
