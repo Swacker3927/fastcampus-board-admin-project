@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/admin/members")
 @Controller
-public class AdminUserAccountManagementController {
+public class AdminAccountManagementController {
 
     @GetMapping
     public String members(
@@ -19,5 +19,4 @@ public class AdminUserAccountManagementController {
     ) {
         return "admin/members";
     }
-
 }

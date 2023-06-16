@@ -19,5 +19,4 @@ public class UserAccountManagementController {
     ) {
         return "management/user-accounts";
     }
-
 }
