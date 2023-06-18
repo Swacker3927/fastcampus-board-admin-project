@@ -102,6 +102,29 @@ class UserAccountManagerServiceTest {
             server.verify();
         }
 
+        @DisplayName("회원 ID와 함께 회원 API을 호출하면, 회원을 가져온다.")
+        @Test
+        void givenUserAccountId_whenCallingUserAccountAPI_thenReturnsUserAccount() throws JsonProcessingException {
+            // Given
+            String userId = "uno";
+            UserAccountDto expectedUserAccount = createUserAccountDto(userId, "Uno");
+            server
+                    .expect(requestTo(projectProperties.board().url() + "/api/userAccounts/" + userId))
+                    .andRespond(withSuccess(
+                            mapper.writeValueAsString(expectedUserAccount),
+                            MediaType.APPLICATION_JSON
+                    ));
+
+            // When
+            UserAccountDto result = sut.getUserAccount(userId);
+
+            // Then
+            assertThat(result)
+                    .hasFieldOrPropertyWithValue("userId", expectedUserAccount.userId())
+                    .hasFieldOrPropertyWithValue("nickname", expectedUserAccount.nickname());
+            server.verify();
+        }
+
         @DisplayName("회원 ID와 함께 회원 삭제 API를 호출하면, 회원을 삭제한다.")
         @Test
         void givenUserAccountId_whenCallingDeleteUserAccountAPI_thenDeletesUserAccount() {
