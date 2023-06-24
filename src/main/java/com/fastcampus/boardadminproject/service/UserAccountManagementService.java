@@ -8,7 +8,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class UserAccountManagerService {
+public class UserAccountManagementService {
 
     public List<UserAccountDto> getUserAccounts() {
         return List.of();
