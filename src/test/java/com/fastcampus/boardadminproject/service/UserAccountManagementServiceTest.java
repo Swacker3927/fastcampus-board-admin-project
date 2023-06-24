@@ -27,16 +27,16 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ActiveProfiles("test")
 @DisplayName("비즈니스 로직 - 회원 관리")
-class UserAccountManagerServiceTest {
+class UserAccountManagementServiceTest {
 
     @DisplayName("실제 API 호출 테스트")
     @SpringBootTest
     @Nested
     class RealAPITest {
-        private final UserAccountManagerService sut;
+        private final UserAccountManagementService sut;
 
         @Autowired
-        RealAPITest(UserAccountManagerService sut) {
+        RealAPITest(UserAccountManagementService sut) {
             this.sut = sut;
         }
 
@@ -57,18 +57,18 @@ class UserAccountManagerServiceTest {
     @DisplayName("API Mocking 테스트")
     @EnableConfigurationProperties(ProjectProperties.class)
     @AutoConfigureWebClient(registerRestTemplate = true)
-    @RestClientTest(UserAccountManagerService.class)
+    @RestClientTest(UserAccountManagementService.class)
     @Nested
     class RestTemplateTest {
 
-        private final UserAccountManagerService sut;
+        private final UserAccountManagementService sut;
         private final ProjectProperties projectProperties;
         private final MockRestServiceServer server;
         private final ObjectMapper mapper;
 
         @Autowired
         public RestTemplateTest(
-                UserAccountManagerService sut,
+                UserAccountManagementService sut,
                 ProjectProperties projectProperties,
                 MockRestServiceServer server,
                 ObjectMapper mapper

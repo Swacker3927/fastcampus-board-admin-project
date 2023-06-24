@@ -2,7 +2,7 @@ package com.fastcampus.boardadminproject.controller;
 
 import com.fastcampus.boardadminproject.config.SecurityConfig;
 import com.fastcampus.boardadminproject.dto.UserAccountDto;
-import com.fastcampus.boardadminproject.service.UserAccountManagerService;
+import com.fastcampus.boardadminproject.service.UserAccountManagementService;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserAccountManagementControllerTest {
 
     private final MockMvc mvc;
-    @MockBean private UserAccountManagerService userAccountManagerService;
+    @MockBean private UserAccountManagementService userAccountManagementService;
 
     UserAccountManagementControllerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
@@ -36,7 +36,7 @@ class UserAccountManagementControllerTest {
     @Test
     void givenNothing_whenRequestingUserAccountManagementView_thenReturnsUserAccountManagementView() throws Exception {
         // Given
-        given(userAccountManagerService.getUserAccounts()).willReturn(List.of());
+        given(userAccountManagementService.getUserAccounts()).willReturn(List.of());
 
         // When & Then
         mvc.perform(get("/management/user-accounts"))
@@ -44,7 +44,7 @@ class UserAccountManagementControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("management/user-accounts"))
                 .andExpect(model().attribute("userAccounts", List.of()));
-        then(userAccountManagerService).should().getUserAccounts();
+        then(userAccountManagementService).should().getUserAccounts();
     }
 
     @DisplayName("[data][GET] 회원 1개 - 정상 호출")
@@ -53,7 +53,7 @@ class UserAccountManagementControllerTest {
         // Given
         String userId = "uno";
         UserAccountDto userAccountDto = createUserAccountDto(userId, "Uno");
-        given(userAccountManagerService.getUserAccount(userId)).willReturn(userAccountDto);
+        given(userAccountManagementService.getUserAccount(userId)).willReturn(userAccountDto);
 
         // When & Then
         mvc.perform(get("/management/user-accounts/" + userId))
@@ -61,7 +61,7 @@ class UserAccountManagementControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.userId").value(userId))
                 .andExpect(jsonPath("$.nickname").value(userAccountDto.nickname()));
-        then(userAccountManagerService).should().getUserAccount(userId);
+        then(userAccountManagementService).should().getUserAccount(userId);
     }
 
     @DisplayName("[view][POST] 회원 삭제 - 정상 호출")
@@ -69,7 +69,7 @@ class UserAccountManagementControllerTest {
     void givenUserAccountId_whenRequestingDeletion_thenRedirectsToUserAccountManagementView() throws Exception {
         // Given
         String userId = "uno";
-        willDoNothing().given(userAccountManagerService).deleteUserAccount(userId);
+        willDoNothing().given(userAccountManagementService).deleteUserAccount(userId);
 
         // When & Then
         mvc.perform(
@@ -79,7 +79,7 @@ class UserAccountManagementControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/management/user-accounts"))
                 .andExpect(redirectedUrl("/management/user-accounts"));
-        then(userAccountManagerService).should().deleteUserAccount(userId);
+        then(userAccountManagementService).should().deleteUserAccount(userId);
     }
 
     private UserAccountDto createUserAccountDto(String userId, String nickname) {
