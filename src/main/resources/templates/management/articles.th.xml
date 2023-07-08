@@ -15,7 +15,6 @@
             <attr sel="th[2]" th:text="'작성자'" />
             <attr sel="th[3]" th:text="'작성일시'" />
         </attr>
-
         <attr sel="tbody" th:remove="all-but-first">
             <attr sel="tr[0]" th:each="article : ${articles}">
                 <attr sel="td[0]" th:text="${article.id}" />
