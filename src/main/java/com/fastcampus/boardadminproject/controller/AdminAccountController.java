@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/admin/members")
 @Controller
 public class AdminAccountController {
 
     private final AdminAccountService adminAccountService;
 
-    @GetMapping
+    @GetMapping("/admin/members")
     public String members() {
         return "admin/members";
     }
@@ -25,12 +24,15 @@ public class AdminAccountController {
     @ResponseBody
     @GetMapping("/api/admin/members")
     public List<AdminAccountResponse> getMembers() {
-        return List.of();
+        return adminAccountService.users().stream()
+                .map(AdminAccountResponse::from)
+                .toList();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
     @DeleteMapping("/api/admin/members/{userId}")
     public void delete(@PathVariable String userId) {
+        adminAccountService.deleteUser(userId);
     }
 }
