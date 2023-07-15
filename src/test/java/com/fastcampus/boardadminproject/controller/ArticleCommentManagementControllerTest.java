@@ -1,6 +1,6 @@
 package com.fastcampus.boardadminproject.controller;
 
-import com.fastcampus.boardadminproject.config.SecurityConfig;
+import com.fastcampus.boardadminproject.config.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("View 컨트롤러 - 게시글 댓글 관리")
-@Import(SecurityConfig.class)
+@Import(TestSecurityConfig.class)
 @WebMvcTest(ArticleCommentManagementController.class)
 class ArticleCommentManagementControllerTest {
     private final MockMvc mvc;
@@ -31,6 +31,6 @@ class ArticleCommentManagementControllerTest {
         mvc.perform(get("/management/article-comments"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("management/articleComments"));
+                .andExpect(view().name("management/article-comments"));
     }
 }
