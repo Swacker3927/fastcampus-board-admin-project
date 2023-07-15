@@ -8,7 +8,7 @@ plugins {
 
 group = 'com.fastcampus'
 version = 'v1.0'
-sourceCompatibility = '17'
+sourceCompatibility = '21'
 
 configurations {
 	compileOnly {
